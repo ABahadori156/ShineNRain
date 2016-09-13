@@ -8,14 +8,21 @@
 
 import UIKit
 import Alamofire
+import CoreLocation
 
-class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var currentTempLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var currentWeatherImage: UIImageView!
     @IBOutlet weak var currentWeatherTypeLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    
+    let locationManager = CLLocationManager()
+    
+    //variable to store our current location
+    var currentLocation: CLLocation!
+    
     
     var currentWeather = CurrentWeather()
     var forecast: Forecast!
@@ -28,22 +35,51 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         
+        //LOCATION MANAGER SETUP
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest   //Pinpoints your exact location
+        locationManager.requestWhenInUseAuthorization()     //Only works when the app is active on the screen and in use
+        locationManager.startMonitoringSignificantLocationChanges() //Tracks any significant GPS changes
         
         
         
-        print("*********\(CURRENT_WEATHER_URL)**********")
-        currentWeather.downloadWeatherDetails {
-            self.downloadForecastData {
-                 self.updateMainUI()
+       
+    }
+    
+    //This will get our location before we run the download our Weather Data
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        locationAuthStatus()
+    }
+    
+    //LOCATION MANAGER FUNCTION - Will check if we authorized to check location, if we haven't, it'll send a request to the user for their location
+    func locationAuthStatus() {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            //get current location and download the coordinates we want
+            currentLocation = locationManager.location  //We're going to access this location and save it to our sharedInstance Singleton 'Location'
+            
+            //Now we set our Singleton 'Location's latitude and longitude to the LocationManager's instance currentLocation.coordinate.latitude & long
+            Location.sharedInstance.latitude = currentLocation.coordinate.latitude
+            Location.sharedInstance.longitude = currentLocation.coordinate.longitude
+            print(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude)
+            
+            //This can only run now if we've actually downloaded our location and saved it to our Singleton class. This way we make sure we aren't going to have an nil longitude or latitude 
+            currentWeather.downloadWeatherDetails {
+                self.downloadForecastData {
+                    self.updateMainUI()
+                }
             }
+        } else {
+            locationManager.requestWhenInUseAuthorization() //When it opens, if not authorized or for the first time, it'll give the request pop up
+            locationAuthStatus()
         }
     }
     
     //FUNCTION TO GET FORECAST DATA
     func downloadForecastData(completed: @escaping DownloadComplete) {
         //Downloading forecast weather data for TableView
-        let forecastURL = URL(string: FORECAST_URL)!
-        Alamofire.request(forecastURL, method: .get).responseJSON { response in
+//        let forecastURL = URL(string: FORECAST_URL)!
+        Alamofire.request(FORECAST_URL, method: .get).responseJSON { response in
             // Whatever response we get in JSON, we want to capture the raw data of that and we want to pass that in the dictionary
             let result = response.result
             

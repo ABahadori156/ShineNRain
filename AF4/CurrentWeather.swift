@@ -58,10 +58,10 @@ class CurrentWeather {
     //Function to download weather data from server - We give it a parameter of typealias 'DownloadComplete' so to tell the function to stop downloading the web data after we've retrieved it once
     func downloadWeatherDetails(completed: @escaping DownloadComplete) {
         //Here we will initialize the URL to tell Alamofire where to download from
-        let currentWeatherURL = URL(string: CURRENT_WEATHER_URL)!   //WE force-unwrap it to prove that the CURRENT_WEATHER_URL is NOT nil
+        
         
         //We want to pass that request into a response by putting it in closure format. We're basically saying that after we request the data, we're going to give it a response then we need to know what the actual result is.
-        Alamofire.request(currentWeatherURL, method: .get).responseJSON { response in
+        Alamofire.request(CURRENT_WEATHER_URL, method: .get).responseJSON { response in
             let result = response.result    //Every request has a response and every response has a result. Here we saved the JSON that we want
             
             if let dict = result.value as? Dictionary<String, AnyObject> {

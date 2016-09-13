@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		351102021D87543F0093DE5C /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351102011D87543F0093DE5C /* Forecast.swift */; };
 		351102041D877E030093DE5C /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351102031D877E030093DE5C /* WeatherCell.swift */; };
+		351102061D87929E0093DE5C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351102051D87929E0093DE5C /* Location.swift */; };
 		35331B9F1D864B13000989EB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35331B9E1D864B13000989EB /* Constants.swift */; };
 		35331BA11D864E37000989EB /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35331BA01D864E37000989EB /* CurrentWeather.swift */; };
 		366222008B9FEE6545A82689 /* Pods_AF4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38DC8A02980A80C11DC4EFF8 /* Pods_AF4.framework */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		351102011D87543F0093DE5C /* Forecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		351102031D877E030093DE5C /* WeatherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
+		351102051D87929E0093DE5C /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		35331B9E1D864B13000989EB /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		35331BA01D864E37000989EB /* CurrentWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		38DC8A02980A80C11DC4EFF8 /* Pods_AF4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AF4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +89,7 @@
 				35331BA01D864E37000989EB /* CurrentWeather.swift */,
 				351102011D87543F0093DE5C /* Forecast.swift */,
 				351102031D877E030093DE5C /* WeatherCell.swift */,
+				351102051D87929E0093DE5C /* Location.swift */,
 			);
 			path = AF4;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				35331BA11D864E37000989EB /* CurrentWeather.swift in Sources */,
 				35331B9F1D864B13000989EB /* Constants.swift in Sources */,
 				351102021D87543F0093DE5C /* Forecast.swift in Sources */,
+				351102061D87929E0093DE5C /* Location.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
