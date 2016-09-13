@@ -45,7 +45,7 @@ class CurrentWeather {
         if _weatherType == nil {
             _weatherType = ""
         }
-        return _cityName
+        return _weatherType
     }
     
     var currentTemp: Double {
@@ -56,7 +56,7 @@ class CurrentWeather {
     }
     
     //Function to download weather data from server - We give it a parameter of typealias 'DownloadComplete' so to tell the function to stop downloading the web data after we've retrieved it once
-    func downloadWeatherDetails(completed: DownloadComplete) {
+    func downloadWeatherDetails(completed: @escaping DownloadComplete) {
         //Here we will initialize the URL to tell Alamofire where to download from
         let currentWeatherURL = URL(string: CURRENT_WEATHER_URL)!   //WE force-unwrap it to prove that the CURRENT_WEATHER_URL is NOT nil
         
@@ -95,11 +95,9 @@ class CurrentWeather {
                         }
                     }
                 }
-            }
             completed() //This is the function we created to tell this function to be done
-            //What format we want our results to be in
-            
-       
+            //Completed() has to be inside the Alamofire.request().response JSON {} at the end
+            }
         }
         
         

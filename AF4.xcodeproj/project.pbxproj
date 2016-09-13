@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		351102021D87543F0093DE5C /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351102011D87543F0093DE5C /* Forecast.swift */; };
 		35331B9F1D864B13000989EB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35331B9E1D864B13000989EB /* Constants.swift */; };
 		35331BA11D864E37000989EB /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35331BA01D864E37000989EB /* CurrentWeather.swift */; };
 		366222008B9FEE6545A82689 /* Pods_AF4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38DC8A02980A80C11DC4EFF8 /* Pods_AF4.framework */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		351102011D87543F0093DE5C /* Forecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		35331B9E1D864B13000989EB /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		35331BA01D864E37000989EB /* CurrentWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		38DC8A02980A80C11DC4EFF8 /* Pods_AF4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AF4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +83,7 @@
 				95724C9C1D85648D0018DD46 /* Info.plist */,
 				35331B9E1D864B13000989EB /* Constants.swift */,
 				35331BA01D864E37000989EB /* CurrentWeather.swift */,
+				351102011D87543F0093DE5C /* Forecast.swift */,
 			);
 			path = AF4;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				95724C911D85648D0018DD46 /* AppDelegate.swift in Sources */,
 				35331BA11D864E37000989EB /* CurrentWeather.swift in Sources */,
 				35331B9F1D864B13000989EB /* Constants.swift in Sources */,
+				351102021D87543F0093DE5C /* Forecast.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

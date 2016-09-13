@@ -18,18 +18,55 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
     var currentWeather = CurrentWeather()
+    var forecast: Forecast!
+    
+    //This will be the array we store the forecasts in from the JSON.
+    var forecasts = [Forecast]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         
+        
+        
+        
         print("*********\(CURRENT_WEATHER_URL)**********")
         currentWeather.downloadWeatherDetails {
-            //Setup UI to load downloaded data
+            self.downloadForecastData {
+                 self.updateMainUI()
+            }
         }
-        
     }
+    
+    //FUNCTION TO GET FORECAST DATA
+    func downloadForecastData(completed: @escaping DownloadComplete) {
+        //Downloading forecast weather data for TableView
+        let forecastURL = URL(string: FORECAST_URL)!
+        Alamofire.request(forecastURL, method: .get).responseJSON { response in
+            // Whatever response we get in JSON, we want to capture the raw data of that and we want to pass that in the dictionary
+            let result = response.result
+            
+            //So whatever the result is equal to or what the value is, we'll cast it as a Swift dictionary object we can use
+            if let dict = result.value as? Dictionary<String, AnyObject> {
+                
+                if let list = dict["list"] as? [Dictionary<String, AnyObject>] {
+                    // We'll download the list of data once, then parse through using a For-Loop and it'll set the data individually
+                    
+                    for obj in list {
+                        //Here we create a dictionary that will everytime we parse through and we find a dictionary in the list array, we're going to run this loop and pass in that dictionary into another dictionary - For every forecast we find, we're adding it to another dictionary in here so we can grab the data and manipulate it
+                        //After we create a weather object pulling from this array, we put it in our global forecasts array - So this loo
+                        let forecast = Forecast(weatherDict: obj)
+                        self.forecasts.append(forecast)
+                        print(obj)
+                    }
+                }
+            }
+             completed()
+        }
+       
+    }
+    
 
    
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -44,6 +81,19 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "weatherCell", for: indexPath)
         return cell
+    }
+    
+    //Function to set the data to the UI
+    func updateMainUI() {
+        //This passes the data to the date
+        dateLabel.text = currentWeather.date
+        currentTempLabel.text = "\(currentWeather.currentTemp)"
+        currentWeatherTypeLabel.text = currentWeather.weatherType
+        locationLabel.text = currentWeather.cityName
+        
+        currentWeatherImage.image = UIImage(named: currentWeather.weatherType)
+        
+        
     }
 
 
