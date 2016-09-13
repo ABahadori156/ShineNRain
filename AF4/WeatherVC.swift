@@ -60,6 +60,9 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         self.forecasts.append(forecast)
                         print(obj)
                     }
+                    self.forecasts.remove(at: 0)    //here we remove today's forecast from our array
+                    self.tableView.reloadData()
+                    //After we downloaded it all, then we can reload the data and see if it pulls it in our tableView
                 }
             }
              completed()
@@ -74,13 +77,21 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return forecasts.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "weatherCell", for: indexPath)
-        return cell
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "weatherCell", for: indexPath) as? WeatherCell {
+            //We need to tell this function which forecast to pass at which time - We're going to pull out 1 forecast from our forecasts array
+            //For each cell that is created, this gets an indexPath - If the first cell is indexPath 0, it's going to pull out the dictionary for indexPath 0.
+            let forecast = forecasts[indexPath.row]
+            cell.configureCell(forecast: forecast)
+            return cell
+        } else {
+            return WeatherCell()
+        }
+        
     }
     
     //Function to set the data to the UI
